@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">AcciAware</a>
+            <a class="navbar-brand" href="">AcciAware</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -25,10 +25,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a href="#"><button type="button" class="btn btn-primary mx-lg-2">Sign Up</button></a>
+                        <a href="./users/signup.php"><button type="button" class="btn btn-primary mx-lg-2">Sign
+                                Up</button></a>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-success">Sign In</button>
+                        <a href="./users/signin.php"><button type="button" class="btn btn-success">Sign In</button></a>
                     </li>
                 </ul>
             </div>
