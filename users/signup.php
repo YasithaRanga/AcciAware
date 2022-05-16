@@ -40,6 +40,26 @@
                 <div class="card-body p-md-5">
                     <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                    <?php
+                        session_start();
+                        if(isset($_SESSION['status'])){
+                            ?>
+                                <div class="alert alert-success" role="alert">
+                                    <?php echo $_SESSION['status'];?>
+                                </div>
+                            <?php
+                            unset($_SESSION['status']);
+                        }
+                        if(isset($_SESSION['fail'])){
+                            ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?php echo $_SESSION['fail'];?>
+                                </div>
+                            <?php
+                            unset($_SESSION['fail']);
+                        }
+                        
+                    ?>
 
                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
