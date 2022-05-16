@@ -1,22 +1,22 @@
 <?php
 
-class UserLogin{
+class WebMasterLogin{
     function logUser(){
         
         session_start();
         
-        if(isset($_SESSION["user"]) && $_SESSION["user"] === true){
-            header("location: welcome.php");
+        if(isset($_SESSION["webmaster"]) && $_SESSION["webmaster"] === true){
+            header("location: ../../webmaster/welcome.php");
             exit;
         }
         require '../database.php';
 
         if(isset($_POST['submit'])){
-            $vehicle_reg_number = $_POST['registrationnumber'];
+            $username = $_POST['username'];
             $password = $_POST['password'];
         }   
         
-        $sql = "SELECT vehicle_reg_number, password FROM users WHERE vehicle_reg_number = '".$vehicle_reg_number."' AND password = md5('".$password."')";
+        $sql = "SELECT username, password FROM webmaster WHERE username = '".$username."' AND password = md5('".$password."')";
         
         $result = $conn->query($sql);
         
@@ -26,16 +26,16 @@ class UserLogin{
 
             session_start();
                             
-            $_SESSION["user"] = true;
-            $_SESSION["registrationnumber"] = $vehicle_reg_number;
+            $_SESSION["webmaster"] = true;
+            $_SESSION["username"] = $username;
 
             $_SESSION['status'] = "Logged In Successfully.";
-            header('Location: ../../users/welcome.php');
+            header('Location: ../../webmaster/welcome.php');
 
         }
         else {
             $_SESSION['fail'] = "Login Unsuccessful. Incorrect Login Details.";
-            header('Location: ../../users/signin.php');
+            header('Location: ../../webmaster/index.php');
         }
 
         $conn->close(); 
@@ -43,5 +43,5 @@ class UserLogin{
     }
 }
 
-$newUserLogin = new UserLogin();
-$newUserLogin -> logUser();
+$newWebMasterLogin = new WebMasterLogin();
+$newWebMasterLogin -> logUser();

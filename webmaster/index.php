@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <title>Admin Sign In | AcciAware</title>
+    <title>Sign In | AcciAware</title>
 </head>
 
 <body>
@@ -34,15 +34,15 @@
                     <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Admin Sign In</p>
+                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Web Master Login</p>
 
-                        <form class="mx-1 mx-md-4" method="POST" action="../core/operations/AdminLogin.php">
+                        <form class="mx-1 mx-md-4" method="POST" action="../core/operations/WebMasterLogin.php">
 
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                             <input type="text" id="username" name="username" class="form-control" placeholder="Username" required/>
-                            <label class="form-label" for="username">Username</label>
+                            <label class="form-label" for="registrationnumber">Username</label>
                             </div>
                         </div>
 
