@@ -5,8 +5,8 @@ $username = "root";
 $password = "";
 $db_name = "acciaware";
 
-$conn = mysqli_connect($server_name, $username, $password, $db_name);
+$conn = new mysqli($server_name, $username, $password, $db_name);
 
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }

@@ -44,28 +44,48 @@
 
                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign In</p>
 
-                        <form class="mx-1 mx-md-4" method="POST">
+                        <form class="mx-1 mx-md-4" method="POST" action="../core/operations/UserLogin.php">
 
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="form3Example1c" class="form-control" placeholder="XX-1234" required/>
-                            <label class="form-label" for="form3Example1c">Vehicle Registration Number</label>
+                            <input type="text" id="registrationnumber" name="registrationnumber" class="form-control" placeholder="XX-1234" required/>
+                            <label class="form-label" for="registrationnumber">Vehicle Registration Number</label>
                             </div>
                         </div>
 
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="form3Example4c" class="form-control" placeholder="Password" required/>
-                            <label class="form-label" for="form3Example4c">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required/>
+                            <label class="form-label" for="password">Password</label>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                            <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+                            <button type="submit" name="submit" class="btn btn-primary btn-lg">Sign In</button>
                         </div>
+                        <?php
+                            session_start();
 
+                            if(isset($_SESSION['status'])){
+                                ?>
+                                    <div class="alert alert-success" role="alert">
+                                        <?php echo $_SESSION['status'];?>
+                                    </div>
+                                <?php
+                                unset($_SESSION['status']);
+                            }
+                            if(isset($_SESSION['fail'])){
+                                ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <?php echo $_SESSION['fail'];?>
+                                    </div>
+                                <?php
+                                unset($_SESSION['fail']);
+                            }
+                        
+                        ?>
                         </form>
 
                     </div>
