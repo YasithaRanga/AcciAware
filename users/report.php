@@ -59,6 +59,14 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
                         </div>
                         
                         <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                            <input type="date" id="date" name="date" class="form-control" required/>
+                            <label class="form-label" for="date">Date</label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                             <select id="type" name="type" class="form-control" class="form-control" required>
@@ -89,7 +97,12 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="cause" name="cause" class="form-control" required/>
+                            <select id="cause" name="cause" class="form-control" required>
+                                <option value="Bad Weather">Bad Weather</option>
+                                <option value="Distractions">Distractions</option>
+                                <option value="Speeding">Speeding</option>
+                                <option value="Drunk Driving">Drunk Driving</option>
+                            </select>
                             <label class="form-label" for="cause">Cause</label>
                             </div>
                         </div>
@@ -105,9 +118,9 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                             <input type="file" id="image1" name="image1" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
-                            <input type="file" id="image2" name="image2" class="form-control my-2" accept="image/png, image/jpeg, image/gif"/>
-                            <input type="file" id="image3" name="image3" class="form-control my-2" accept="image/png, image/jpeg, image/gif"/>
-                            <input type="file" id="image4" name="image4" class="form-control my-2" accept="image/png, image/jpeg, image/gif"/>
+                            <input type="file" id="image2" name="image2" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
+                            <input type="file" id="image3" name="image3" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
+                            <input type="file" id="image4" name="image4" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
                             <label class="form-label" for="image1">Images</label>
                             </div>
                         </div>

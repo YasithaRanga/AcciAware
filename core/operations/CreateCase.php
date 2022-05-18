@@ -10,6 +10,7 @@ class CreateCase{
         if(isset($_POST['submit'])){
             $vehicle_reg_number = $_POST['registrationnumber'];
             $name = $_POST['name'];
+            $date = $_POST['date'];
             $type = $_POST['type'];
             $vehicle = $_POST['vehicle'];
             $cause = $_POST['cause'];
@@ -56,7 +57,7 @@ class CreateCase{
 
         
         try {
-            $sql = "INSERT INTO cases(vehicle_reg_number, name, type, vehicle, cause, info, image1, image2, image3, image4, status) VALUES('$vehicle_reg_number', '$name', '$type', '$vehicle', '$cause', '$info', '$new_img1_name', '$new_img2_name', '$new_img3_name', '$new_img4_name', 'Not Reviewed')";
+            $sql = "INSERT INTO cases(vehicle_reg_number, name, date, type, vehicle, cause, info, image1, image2, image3, image4, status) VALUES('$vehicle_reg_number', '$name', '$date', '$type', '$vehicle', '$cause', '$info', '$new_img1_name', '$new_img2_name', '$new_img3_name', '$new_img4_name', 'Not Reviewed')";
             $conn->query($sql);
             $_SESSION['status'] = "Case Submitted Successfully";
             header('Location: ../../users/welcome.php');
@@ -76,5 +77,5 @@ class CreateCase{
     }
 }
 
-$newUser = new CreateCase();
-$newUser -> addCase();
+$newCase = new CreateCase();
+$newCase -> addCase();

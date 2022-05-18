@@ -22,7 +22,7 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] !== true){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <title>Users | AcciAware</title>
+    <title>Users| Admin Portal | AcciAware</title>
 </head>
 
 <body>
@@ -70,13 +70,13 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] !== true){
     <section class="vh-100" style="background-color: #eee;">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-12 col-xl-11">
+            <div class="col-lg-12 col-xl-12">
                 <div class="card text-black" style="border-radius: 25px;">
                 <div class="card-body p-md-5">
                     <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-10 col-xl-10 order-2 order-lg-1">
                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Users List</p>
-                        <table class="table table-striped">
+                        <table class="table text-center table-striped">
                             <thead>
                                 <tr>
                                 <th scope="col">Vehicle Registration Number</th>
@@ -124,22 +124,44 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] !== true){
                                 ?>
                             </tbody>
                         </table>
+                        
                         <?php
                             $sql = "SELECT vehicle_reg_number, name, email, ins_company, policy_number FROM users";
                                     
                             $result = $conn->query($sql);
                                     
+                                    
+                            //Pagination
+
+                            $num_of_results = mysqli_num_rows($result);
+
+                            $num_of_total_pages = ceil($num_of_results/$num_of_results_per_page);
+
+                            if(!isset($_GET['page'])){
+                                $page = 1;
+                            }else{
+                                $page = $_GET['page'];
+                            }
+
+
+                            $this_page_first_result = ($page-1)*$num_of_results_per_page;
+
+                            $sql = "SELECT vehicle_reg_number, name, email, ins_company, policy_number FROM users LIMIT " . $this_page_first_result . ',' . $num_of_results_per_page;
+                            
+                            $result = $conn->query($sql);
+
                             if ($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) {
                                     ?>
                                         <div class="collapse" id="collapseCase<?php echo $row['vehicle_reg_number'];?>">
                                             <p class="text-left h3 fw-bold mb-5 mx-1 mx-md-4 mt-4">Cases Reported By <?php echo $row['vehicle_reg_number'];?></p>
                                             <div class="card card-body">
-                                                <table class="table table-success">
+                                                <table class="table text-center table-success">
                                                     <thead>
                                                         <tr>
                                                             <th scope="col">Incident ID</th>
                                                             <th scope="col">Name</th>
+                                                            <th scope="col">Date</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Vehicle</th>
                                                             <th scope="col">Cause</th>
@@ -150,9 +172,10 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] !== true){
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                            $cases = "SELECT incident_id, name, type, vehicle, cause, info, status FROM cases WHERE vehicle_reg_number = '".$row['vehicle_reg_number']."'";
+                                                            $cases = "SELECT incident_id, name, date, type, vehicle, cause, info, status, image1, image2, image3, image4 FROM cases WHERE vehicle_reg_number = '".$row['vehicle_reg_number']."'";
 
                                                             $caseResult = $conn->query($cases);
+
                                                                     
                                                             if ($caseResult->num_rows > 0) {
                                                                 while($caseRow = $caseResult->fetch_assoc()) {
@@ -160,18 +183,19 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] !== true){
                                                                         <tr>
                                                                             <td><?php echo $caseRow['incident_id'];?></td>
                                                                             <td><?php echo $caseRow['name'];?></td>
+                                                                            <td><?php echo $caseRow['date'];?></td>
                                                                             <td><?php echo $caseRow['type'];?></td>
                                                                             <td><?php echo $caseRow['vehicle'];?></td>
                                                                             <td><?php echo $caseRow['cause'];?></td>
                                                                             <td><?php echo $caseRow['status'];?></td>
                                                                             <td>
-                                                                                <form method="POST" action="../../core/operations/UpdateCase.php">
+                                                                                <form method="POST" action="../../core/operations/ReviewUserCase.php">
                                                                                     <input type="hidden" name="incident_id" value="<?php echo $caseRow['incident_id'];?>">
                                                                                     <select class="btn btn-success" name="status">
                                                                                         <option value="Approved">Approve</option>
                                                                                         <option value="Refused">Refuse</option>
                                                                                     </select>  
-                                                                                    <button class="btn btn-primary" type="submit" name="submit">
+                                                                                    <button class="btn btn-primary my-2" type="submit" name="submit">
                                                                                         Submit
                                                                                     </button>
                                                                                 </form>
@@ -187,8 +211,25 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] !== true){
                                                                                 <p class="text-left h3 fw-bold mb-5 mx-1 mx-md-4 mt-4">Incident ID: <?php echo $caseRow['incident_id'];?></p>
                                                                                 <div class="card card-body">
                                                                                     <div class="row">
-                                                                                        <div class="col-4">Image</div>
-                                                                                        <div class="col-4">Image</div>
+                                                                                        <div class="alert alert-primary" role="alert">
+                                                                                            <?php echo $caseRow['info'];?>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-6">
+                                                                                            <img class="col-12 rounded" src="../../users/uploads/<?php echo $caseRow['image1'];?>"/>
+                                                                                        </div>
+                                                                                        <div class="col-6">
+                                                                                            <img class="col-12 rounded" src="../../users/uploads/<?php echo $caseRow['image2'];?>"/>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-6">
+                                                                                            <img class="col-12 rounded" src="../../users/uploads/<?php echo $caseRow['image3'];?>"/>
+                                                                                        </div>
+                                                                                        <div class="col-6">
+                                                                                            <img class="col-12 rounded" src="../../users/uploads/<?php echo $caseRow['image4'];?>"/>
+                                                                                        </div>
                                                                                     </div>
                                                                                     
                                                                                 </div>
@@ -212,6 +253,17 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"] !== true){
                                 }
                             }
                         ?>
+                        <nav class="d-flex justify-content-center" aria-label="...">
+                            <ul class="pagination">                                
+                        <?php
+                        for($page=1; $page<=$num_of_total_pages; $page++){
+
+                            echo '<li class="page-item"><a class="page-link" href="index.php?page=' . $page . '">' . $page . '</a></li>'; 
+                            
+                        }
+                        ?>
+                            </ul>
+                        </nav>
                 </div>
                 </div>
             </div>

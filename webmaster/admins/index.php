@@ -93,8 +93,30 @@ if(!isset($_SESSION["webmaster"]) || $_SESSION["webmaster"] !== true){
                                     require '../../core/database.php';
         
                                     $sql = "SELECT username, email, authority FROM admins";
+
+                                    $result = $conn->query($sql);
+                                    
+                                    
+                                    //Pagination
+
+                                    $num_of_results = mysqli_num_rows($result);
+
+                                    $num_of_total_pages = ceil($num_of_results/$num_of_results_per_page);
+
+                                    if(!isset($_GET['page'])){
+                                        $page = 1;
+                                    }else{
+                                        $page = $_GET['page'];
+                                    }
+        
+
+                                    $this_page_first_result = ($page-1)*$num_of_results_per_page;
+        
+                                    $sql = "SELECT username, email, authority FROM admins LIMIT " . $this_page_first_result . ',' . $num_of_results_per_page;
                                     
                                     $result = $conn->query($sql);
+
+
 
                                     if ($result->num_rows > 0) {
                                         while($row = $result->fetch_assoc()) {
@@ -124,6 +146,17 @@ if(!isset($_SESSION["webmaster"]) || $_SESSION["webmaster"] !== true){
                                 ?>
                             </tbody>
                         </table>
+                        <nav class="d-flex justify-content-center" aria-label="...">
+                            <ul class="pagination">                                
+                                <?php
+                                for($page=1; $page<=$num_of_total_pages; $page++){
+
+                                    echo '<li class="page-item"><a class="page-link" href="index.php?page=' . $page . '">' . $page . '</a></li>'; 
+                                    
+                                }
+                                ?>
+                            </ul>
+                        </nav>
                 </div>
                 </div>
             </div>

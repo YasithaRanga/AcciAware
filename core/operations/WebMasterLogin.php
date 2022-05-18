@@ -28,7 +28,6 @@ class WebMasterLogin{
                             
             $_SESSION["webmaster"] = true;
             $_SESSION["username"] = $username;
-
             $_SESSION['status'] = "Logged In Successfully.";
             header('Location: ../../webmaster/welcome.php');
 

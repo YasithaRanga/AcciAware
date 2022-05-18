@@ -43,5 +43,5 @@ class AdminLogin{
     }
 }
 
-$newWebMasterLogin = new AdminLogin();
-$newWebMasterLogin -> logUser();
+$newAdminLogin = new AdminLogin();
+$newAdminLogin -> logUser();

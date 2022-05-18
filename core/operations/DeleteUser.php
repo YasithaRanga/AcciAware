@@ -16,7 +16,6 @@ class DeleteUser{
 
             session_start();
                             
-            $_SESSION["webmaster"] = true;
             $_SESSION['status'] = "User Deleted Successfully.";
             header('Location: ../../webmaster/users/');
         }
@@ -30,5 +29,5 @@ class DeleteUser{
     }
 }
 
-$newUserLogin = new DeleteUser();
-$newUserLogin -> delUser();
+$deleteUser = new DeleteUser();
+$deleteUser -> delUser();
