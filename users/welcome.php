@@ -31,7 +31,7 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
                         <p class="my-2 mr-2 text-right text-light">Hi, <b><?php echo htmlspecialchars($_SESSION["registrationnumber"]); ?></b></p>
                     </li>
                     <li class="nav-item">
-                        <a href="admins" type="button" class="btn btn-success mx-lg-2">Report a Case</a>
+                        <a href="report.php" type="button" class="btn btn-success mx-lg-2">Report a Case</a>
                     </li>
                     <li class="nav-item">
                     <a href="logout.php" class="btn btn-danger ml-3">Log Out</a>
@@ -40,6 +40,25 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
             </div>
         </div>
     </nav>
-
+    <?php
+                        session_start();
+                        if(isset($_SESSION['status'])){
+                            ?>
+                                <div class="alert alert-success" role="alert">
+                                    <?php echo $_SESSION['status'];?>
+                                </div>
+                            <?php
+                            unset($_SESSION['status']);
+                        }
+                        if(isset($_SESSION['fail'])){
+                            ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?php echo $_SESSION['fail'];?>
+                                </div>
+                            <?php
+                            unset($_SESSION['fail']);
+                        }
+                        
+                    ?>
 </body>
 </html>
