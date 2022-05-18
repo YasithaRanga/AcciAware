@@ -16,7 +16,6 @@ class DeleteAdmin{
 
             session_start();
                             
-            $_SESSION["webmaster"] = true;
             $_SESSION['status'] = "Admin Deleted Successfully.";
             header('Location: ../../webmaster/admins/');
         }
@@ -30,5 +29,5 @@ class DeleteAdmin{
     }
 }
 
-$newUserLogin = new DeleteAdmin();
-$newUserLogin -> delUser();
+$deleteAdmin = new DeleteAdmin();
+$deleteAdmin -> delUser();

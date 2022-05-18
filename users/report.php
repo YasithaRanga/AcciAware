@@ -28,7 +28,7 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../welcome.php">AcciAware</a>
+            <a class="navbar-brand" href="welcome.php">AcciAware</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -44,78 +44,89 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
                 <div class="card-body p-md-5">
                     <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <?php
-                        session_start();
-                        if(isset($_SESSION['status'])){
-                            ?>
-                                <div class="alert alert-success" role="alert">
-                                    <?php echo $_SESSION['status'];?>
-                                </div>
-                            <?php
-                            unset($_SESSION['status']);
-                        }
-                        if(isset($_SESSION['fail'])){
-                            ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?php echo $_SESSION['fail'];?>
-                                </div>
-                            <?php
-                            unset($_SESSION['fail']);
-                        }
+
+                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Report a Case</p>
+                        <form class="mx-1 mx-md-4" method="POST" enctype="multipart/form-data" action="../../core/operations/CreateCase.php">
                         
-                    ?>
-
-                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Add Admin</p>
-
-                        <form class="mx-1 mx-md-4" method="POST" action="../../core/operations/CreateAdmin.php">
-
+                        <input type="hidden" name="registrationnumber" value="<?php echo $_SESSION["registrationnumber"];?>">
+                        
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="username" name="username" class="form-control" required/>
-                            <label class="form-label" for="name">Username</label>
+                            <input type="text" id="name" name="name" class="form-control" required/>
+                            <label class="form-label" for="name">Name</label>
                             </div>
                         </div>
-
+                        
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                            <input type="date" id="date" name="date" class="form-control" required/>
+                            <label class="form-label" for="date">Date</label>
+                            </div>
+                        </div>
+                        
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            <input type="email" id="email" name="email" class="form-control" required/>
-                            <label class="form-label" for="email">Your Email</label>
+                            <select id="type" name="type" class="form-control" class="form-control" required>
+                                <option value="Minor">Minor</option>
+                                <option value="Severe">Severe</option>
+                            </select>
+                            <label class="form-label" for="type">Type</label>
                             </div>
                         </div>
                         
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="password" name="password" class="form-control" required/>
-                            <label class="form-label" for="password">Password</label>
+                            
+                            <select id="vehicle" name="vehicle" class="form-control" required>
+                                <option value="Motorcycle">Motorcycle</option>
+                                <option value="Bus">Bus</option>
+                                <option value="Van">Van</option>
+                                <option value="Car">Car</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Lorry">Lorry</option>
+                                <option value="Container">Container</option>
+                            </select>
+                            <label class="form-label" for="vehicle">Vehicle</label>
                             </div>
                         </div>
 
                         <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="passwordrepeat" class="form-control" required/>
-                            <label class="form-label" for="passwordrepeat">Repeat your password</label>
+                            <select id="cause" name="cause" class="form-control" required>
+                                <option value="Bad Weather">Bad Weather</option>
+                                <option value="Distractions">Distractions</option>
+                                <option value="Speeding">Speeding</option>
+                                <option value="Drunk Driving">Drunk Driving</option>
+                            </select>
+                            <label class="form-label" for="cause">Cause</label>
                             </div>
                         </div>
 
                         <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                            
-                            <select id="authority" name="authority" class="form-control" required>
-                                <option value="RDA">RDA</option>
-                                <option value="Police">Police</option>
-                                <option value="Insurance Company">Insurance Company</option>
-                            </select>
-                            <label class="form-label" for="authority">Authority</label>
+                            <textarea type="text" id="info" name="info" class="form-control" required></textarea>
+                            <label class="form-label" for="info">Info</label>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                            <input type="file" id="image1" name="image1" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
+                            <input type="file" id="image2" name="image2" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
+                            <input type="file" id="image3" name="image3" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
+                            <input type="file" id="image4" name="image4" class="form-control my-2" accept="image/png, image/jpeg, image/gif" required/>
+                            <label class="form-label" for="image1">Images</label>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                            <button type="submit" name="submit" class="btn btn-primary btn-lg">Add Admin</button>
+                            <button type="submit" name="submit" class="btn btn-primary btn-lg">Submit</button>
                         </div>
 
                         </form>

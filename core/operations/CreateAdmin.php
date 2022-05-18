@@ -35,5 +35,5 @@ class CreateAdmin{
     }
 }
 
-$newUser = new CreateAdmin();
-$newUser -> addUser($vehicle_reg_number, $name, $email, $password, $ins_company, $policy_number);
+$newAdmin = new CreateAdmin();
+$newAdmin -> addUser($vehicle_reg_number, $name, $email, $password, $ins_company, $policy_number);
