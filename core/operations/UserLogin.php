@@ -6,7 +6,7 @@ class UserLogin{
         session_start();
         
         if(isset($_SESSION["user"]) && $_SESSION["user"] === true){
-            header("location: welcome.php");
+            header("location: ../../users/welcome.php");
             exit;
         }
         require '../database.php';
