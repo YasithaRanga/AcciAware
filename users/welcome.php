@@ -91,7 +91,7 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
                                 <?php 
                                     require '../core/database.php';
         
-                                    $sql = "SELECT vehicle_reg_number, incident_id, name, date, type, vehicle, cause, info, status, image1, image2, image3, image4 FROM cases";
+                                    $sql = "SELECT vehicle_reg_number, incident_id, name, date, type, vehicle, cause, info, status, image1, image2, image3, image4 FROM cases WHERE vehicle_reg_number='".$_SESSION["registrationnumber"]."'";
                                     
                                     $result = $conn->query($sql);
 
@@ -110,7 +110,7 @@ if(!isset($_SESSION["user"]) || $_SESSION["user"] !== true){
 
                                     $this_page_first_result = ($page-1)*$num_of_results_per_page;
         
-                                    $sql = "SELECT vehicle_reg_number, incident_id, name, date, type, vehicle, cause, info, status, image1, image2, image3, image4 FROM cases LIMIT " . $this_page_first_result . ',' . $num_of_results_per_page;
+                                    $sql = "SELECT vehicle_reg_number, incident_id, name, date, type, vehicle, cause, info, status, image1, image2, image3, image4 FROM cases WHERE vehicle_reg_number='".$_SESSION["registrationnumber"]."' LIMIT " . $this_page_first_result . ',' . $num_of_results_per_page;
                                     
                                     $result = $conn->query($sql);
 
